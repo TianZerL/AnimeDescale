@@ -1,8 +1,8 @@
-#include <AC/Core/Dispatch.hpp>
+#include <AC/Core/SIMD.hpp>
 
 #include "Descale.hpp"
 
-auto dsapi = get_descale_api(ac::core::cpu::dispatch::supportFMA() ? DESCALE_OPT_AVX2 : DESCALE_OPT_NONE);
+const auto dsapi = get_descale_api(ac::core::simd::supportAVX2() ? DESCALE_OPT_AVX2 : DESCALE_OPT_NONE);
 
 // descale implementation comes from https://github.com/Irrational-Encoding-Wizardry/descale
 Descale::Descale(int srcW, int srcH, int dstW, int dstH, int mode) noexcept
