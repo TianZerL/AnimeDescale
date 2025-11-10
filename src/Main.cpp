@@ -21,23 +21,23 @@
 #include "Descale.hpp"
 
 std::unordered_map<int, const char*> ModeNameMap{
-    {ac::core::IMRESIZE_POINT, "POINT"},
-    {ac::core::IMRESIZE_CATMULL_ROM, "CATMULL_ROM"},               // b = 0, c = 0.5 or a = -0.5
-    {ac::core::IMRESIZE_MITCHELL_NETRAVALI, "MITCHELL_NETRAVALI"}, // b = 1/3, c = 1/3
-    {ac::core::IMRESIZE_BICUBIC_0_60, "BICUBIC_0_60"},             // b = 0, c = 0.6 or a = -0.6
-    {ac::core::IMRESIZE_BICUBIC_0_75, "BICUBIC_0_75"},             // b = 0, c = 0.75 or a = -0.75
-    {ac::core::IMRESIZE_BICUBIC_0_100, "BICUBIC_0_100"},           // b = 0, c = 1 or a = -1
-    {ac::core::IMRESIZE_BICUBIC_20_50, "BICUBIC_20_50"},           // b = 0.2, c = 0.5
-    {ac::core::IMRESIZE_SOFTCUBIC50, "SOFTCUBIC50"},               // b = 0.5, c = 0.5
-    {ac::core::IMRESIZE_SOFTCUBIC75, "SOFTCUBIC75"},               // b = 0.75, c = 0.25
-    {ac::core::IMRESIZE_SOFTCUBIC100, "SOFTCUBIC100"},             // b = 1, c = 0
-    {ac::core::IMRESIZE_LANCZOS2, "LANCZOS2"},
-    {ac::core::IMRESIZE_LANCZOS3, "LANCZOS3"},
-    {ac::core::IMRESIZE_LANCZOS4, "LANCZOS4"},
-    {ac::core::IMRESIZE_SPLINE16, "SPLINE16"},
-    {ac::core::IMRESIZE_SPLINE36, "SPLINE36"},
-    {ac::core::IMRESIZE_SPLINE64, "SPLINE64"},
-    {ac::core::IMRESIZE_BILINEAR, "BILINEAR"},
+    {ac::core::RESIZE_POINT, "POINT"},
+    {ac::core::RESIZE_CATMULL_ROM, "CATMULL_ROM"},               // b = 0, c = 0.5 or a = -0.5
+    {ac::core::RESIZE_MITCHELL_NETRAVALI, "MITCHELL_NETRAVALI"}, // b = 1/3, c = 1/3
+    {ac::core::RESIZE_BICUBIC_0_60, "BICUBIC_0_60"},             // b = 0, c = 0.6 or a = -0.6
+    {ac::core::RESIZE_BICUBIC_0_75, "BICUBIC_0_75"},             // b = 0, c = 0.75 or a = -0.75
+    {ac::core::RESIZE_BICUBIC_0_100, "BICUBIC_0_100"},           // b = 0, c = 1 or a = -1
+    {ac::core::RESIZE_BICUBIC_20_50, "BICUBIC_20_50"},           // b = 0.2, c = 0.5
+    {ac::core::RESIZE_SOFTCUBIC50, "SOFTCUBIC50"},               // b = 0.5, c = 0.5
+    {ac::core::RESIZE_SOFTCUBIC75, "SOFTCUBIC75"},               // b = 0.75, c = 0.25
+    {ac::core::RESIZE_SOFTCUBIC100, "SOFTCUBIC100"},             // b = 1, c = 0
+    {ac::core::RESIZE_LANCZOS2, "LANCZOS2"},
+    {ac::core::RESIZE_LANCZOS3, "LANCZOS3"},
+    {ac::core::RESIZE_LANCZOS4, "LANCZOS4"},
+    {ac::core::RESIZE_SPLINE16, "SPLINE16"},
+    {ac::core::RESIZE_SPLINE36, "SPLINE36"},
+    {ac::core::RESIZE_SPLINE64, "SPLINE64"},
+    {ac::core::RESIZE_BILINEAR, "BILINEAR"},
 };
 
 static double mae(const ac::core::Image& a, const ac::core::Image& b)
@@ -160,17 +160,17 @@ int main(int argc, char* argv[])
     int hi = 1000;
 
     const std::vector<int> resizeModeList{
-        ac::core::IMRESIZE_CATMULL_ROM,
-        ac::core::IMRESIZE_MITCHELL_NETRAVALI,
-        ac::core::IMRESIZE_BICUBIC_0_75,
-        ac::core::IMRESIZE_BICUBIC_0_100,
-        ac::core::IMRESIZE_BICUBIC_20_50,
-        ac::core::IMRESIZE_SOFTCUBIC50,
-        ac::core::IMRESIZE_LANCZOS2,
-        ac::core::IMRESIZE_LANCZOS3,
-        ac::core::IMRESIZE_SPLINE16,
-        ac::core::IMRESIZE_SPLINE36,
-        ac::core::IMRESIZE_BILINEAR,
+        ac::core::RESIZE_CATMULL_ROM,
+        ac::core::RESIZE_MITCHELL_NETRAVALI,
+        ac::core::RESIZE_BICUBIC_0_75,
+        ac::core::RESIZE_BICUBIC_0_100,
+        ac::core::RESIZE_BICUBIC_20_50,
+        ac::core::RESIZE_SOFTCUBIC50,
+        ac::core::RESIZE_LANCZOS2,
+        ac::core::RESIZE_LANCZOS3,
+        ac::core::RESIZE_SPLINE16,
+        ac::core::RESIZE_SPLINE36,
+        ac::core::RESIZE_BILINEAR,
     };
 
     std::vector<int> heightList{};
@@ -179,7 +179,7 @@ int main(int argc, char* argv[])
     std::vector<int> bestHList(testImages);
     std::vector<int> bestModeList(testImages);
 
-    int bestW = 0, bestH = 0, bestMode = ac::core::IMRESIZE_BILINEAR;
+    int bestW = 0, bestH = 0, bestMode = ac::core::RESIZE_BILINEAR;
     int srcW = 0, srcH = 0;
 
     std::printf("total images: %zu\n", totalImages);
