@@ -17,6 +17,7 @@ Options parse(const int argc, const char* const* argv) noexcept
 
     app.add_flag("-d,--detect_mode", options.detectMode, "detect without processing to save.");
     app.add_flag("-c,--crop", options.crop, "crop to 720P.");
+    app.add_flag("-r,--resize", options.resize, "resize to 720P.");
     app.add_flag("-g,--gray", options.gray, "convert to gray.");
 
     try { app.parse(argc, argv); }

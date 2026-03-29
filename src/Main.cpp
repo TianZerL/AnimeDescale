@@ -286,8 +286,16 @@ int main(int argc, char* argv[])
                 else out = yout;
 
                 out = ac::core::astype(out, ac::core::Image::UInt8);
-                if (options.crop && (out.height() > 720)) // crop to 720p
-                    out = ac::core::crop(out, (out.width() - 1280) / 2, (out.height() - 720) / 2, 1280, 720);
+                if (out.height() > 720)
+                {
+                    if (options.resize)
+                    {
+                        ac::core::Image resized{ 1280, 720, out.channels(), out.type() };
+                        ac::core::resize(out, resized, 0.0, 0.0, ac::core::RESIZE_CATMULL_ROM);
+                        out = resized;
+                    }
+                    else if (options.crop) out = ac::core::crop(out, (out.width() - 1280) / 2, (out.height() - 720) / 2, 1280, 720);
+                }
                 ac::core::imwrite((outputDir / std::format("frame_{}p_descaled_{}_{:04d}.png", bestH, id, i + 1)).string().c_str(), out);
             }
         }

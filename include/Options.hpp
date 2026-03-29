@@ -12,6 +12,7 @@ struct Options
     std::string outputDir{};
     bool detectMode = false;
     bool crop = false;
+    bool resize = false;
     bool gray = false;
 };
 
