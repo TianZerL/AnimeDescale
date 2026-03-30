@@ -50,7 +50,7 @@ static double mae(const ac::core::Image& a, const ac::core::Image& b)
         for (int j = crop; j < a.width() - crop; j++)
         {
             double temp = std::abs(*static_cast<const float*>(a.ptr(j, i)) - *static_cast<const float*>(b.ptr(j, i)));
-            diff += temp > threshold ? temp : 0.0;
+            diff += (temp > threshold) ? temp : 0.0;
         }
     }
     return diff / ((a.height() - 2 * crop) * (a.width() - 2 * crop));
@@ -66,8 +66,7 @@ static std::pair<int /* height - lo */, double /* ratio */> findBestGuess(const 
     {
         auto last = diff[i - 1];
         auto curr = diff[i];
-        if (last < std::numeric_limits<double>::epsilon()) last += std::numeric_limits<double>::epsilon();
-        auto ratio = last / curr;
+        auto ratio = (curr > 0.0) ? (last / curr) : 0.0;
         ratios.emplace_back(ratio);
         if (ratio > maxRatio)
         {
@@ -156,7 +155,7 @@ int main(int argc, char* argv[])
     std::size_t totalImages = options.inputs.size();
     std::size_t testImages = totalImages > chunkSize ? std::lround(totalImages / static_cast<double>(chunkSize)) : 1;
 
-    int lo = 700;
+    int lo = 719;
     int hi = 1000;
 
     const std::vector<int> resizeModeList{
